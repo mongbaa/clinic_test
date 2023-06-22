@@ -116,7 +116,7 @@ if (isset($_GET['type_work_id'])) {
 
                 <div class="row p-2">
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-12">
 
                                 <?PHP
                                     include "config.inc.php";
@@ -188,8 +188,8 @@ if (isset($_GET['type_work_id'])) {
                             <?php } ?>
                         </tr>
                     </thead>
-                    <tbody>
 
+                    <tbody>
                         <?PHP
                         include "config.inc_clinic.php";
                         $i = 0;
@@ -211,24 +211,30 @@ if (isset($_GET['type_work_id'])) {
                             <tr>
                                 <th scope="row"> <?php echo $result_student['student_id']; ?> </th>
                                 <td> <?php echo $result_student['student_name']; ?> <?php echo $result_student['student_lastname']; ?> </td>
-
-
-
                                 <?php
-                                foreach ($form_main_array as $values => $data) {
-                                         $form_main_table = $data['form_main_table'];
+                                    foreach ($form_main_array as $values => $data) {
+                                        $form_main_table = $data['form_main_table'];
+                                        $form_main_id = $data['form_main_id'];
+
+                                            $sql_detail = " SELECT * FROM tbl_detail as d ";
+                                            $sql_detail .= " WHERE d.form_main_id = '$form_main_id' and  student_id = $student_id ";
+                                            $query_detail = $conn->query($sql_detail);
+                                            if($result_detail = $query_detail->fetch_assoc()){
+                                                $detail_id = $result_detail['detail_id'];
+                                            }else{
+                                                
+                                                $detail_id = '';
+                                            }
                                 ?>
-                                    <td>   <?php echo $form_main_table; ?>   </td>
+                                
+                                 <td>   <?php echo $form_main_table; ?>  /   <?php echo $form_main_id; ?> / <?php echo $detail_id; ?>  </td>
 
                                 <?php } ?>
-
-
                             </tr>
                         <?php
                         }
                         $conn_clinic->close();
                         ?>
-
                     </tbody>
                 </table>
             </div>

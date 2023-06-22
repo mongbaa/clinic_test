@@ -1,48 +1,6 @@
 <?php include "header.php"; ?>
 
 
-<?php
-if (!isset($_SESSION['Login_clinic_test'])) {
-    //echo "<META http-equiv=refresh content=0;url=login.php>"; 	
-    //exit;
-}
-
-
-if (isset($_SESSION['do'])) {
-
-    $do = $_SESSION['do'];
-    echo "<script>";
-    echo " Swal.fire({";
-    echo "  title: 'สำเร็จ!',";
-    echo "  text: '$do',";
-    echo "  icon: 'success',";
-    echo "  imageUrl: 'https://unsplash.it/400/200',";
-    echo "  imageWidth: 400,";
-    echo "  imageHeight: 200,";
-    echo "  imageAlt: 'Custom image',";
-    echo "  })";
-    echo " </script>";
-    unset($_SESSION['do']);
-}
-
-
-if (isset($_SESSION['error'])) {
-
-    $error = $_SESSION['error'];
-    echo "<script>";
-    echo " Swal.fire({";
-    echo "  title: 'ไม่สำเร็จ!',";
-    echo "  text: '$error',";
-    echo "  icon: 'error',";
-    echo "  imageUrl: 'https://unsplash.it/400/200',";
-    echo "  imageWidth: 400,";
-    echo "  imageHeight: 200,";
-    echo "  imageAlt: 'Custom image',";
-    echo "  })";
-    echo " </script>";
-    unset($_SESSION['error']);
-}
-?>
 
 
 
@@ -50,6 +8,7 @@ if (isset($_SESSION['error'])) {
 
 $form_main_id = $_GET['form_main_id'];
 include "config.inc.php";
+
 $sql = " SELECT * FROM tbl_form_main as fm ";
 $sql .= " INNER JOIN  tbl_type_work AS tw  on fm.type_work_id = tw.type_work_id ";
 $sql .= " WHERE md5(fm.form_main_id) = '$form_main_id' ";
@@ -65,6 +24,8 @@ $form_main_detail = $result['form_main_detail'];
 $form_main_detail_step = $result['form_main_detail_step'];
 $form_main_confirm = $result['form_main_confirm'];
 $array_form_main_detail_step = json_decode($form_main_detail_step, true);
+
+
 
 
 $tbl = $result['form_main_table'];
@@ -221,19 +182,87 @@ $form_detail_array = array();
 <section class="section dashboard">
     <div class="row">
 
+
+
         <div class="row justify-content-md-center">
             <div class="col-xxl-10 col-md-12">
                 <form class="needs-validation" novalidate method="post" action="" enctype="multipart/form-data">
 
 
 
-                <input name="tbl" type="hidden" value="<?php echo $tbl; ?>" />
-              
+                    <input name="tbl" type="hidden" value="<?php echo $tbl; ?>" />
+
 
 
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables ข้อมูล ใบประเมินการสอบ </h5>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div align="left">
+                                        <img src="image/LOGO-TDC-NEW.png" alt="LOGO-TDC-NEW" width="320">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div align="right">
+                                        <img src="image/2.gif" width="120" height="120" style="border-radius:50%;" class="img-circle responsive" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3> ใบประเมินการปฏิบัติงาน <B><?php echo $form_main_name; ?></B> </h3>
+                            <hr>
+
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div align="left">
+                                        <h5>
+                                            ชื่อผู้สอบ : นทพ.
+                                            เลขที่ : 69000000001
+                                        </h5>
+                                        <hr>
+                                        <h5>
+                                            ชื่อผู้ป่วย :
+                                            เลขที่บัตร : 660000001
+                                        </h5>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div align="right">
+                                       
+                                     
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             <table id="DataTable1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -434,26 +463,18 @@ $form_detail_array = array();
                                             );
                                         ?>
 
-
-
                                             <tr>
-
                                                 <td><?php echo $form_detail_order; ?> </td>
                                                 <td><?php echo $form_detail_name; ?> </td>
-
                                                 <?php if (in_array('W', $array_form_main_detail_step)) {  //เพิ่ม แบ่งหัวข้อรายการประเมิน 
                                                 ?>
                                                     <td><?php echo $form_detail_weight; ?> </td>
                                                 <?php } ?>
-
                                                 <?php if (in_array('F', $array_form_main_detail_step)) {  //เพิ่ม แบ่งหัวข้อรายการประเมิน 
                                                 ?>
                                                     <td><?php echo $form_detail_score_full; ?> </td>
                                                 <?php } ?>
-
-
                                                 <td><?php echo $form_detail_score; ?> </td>
-
                                             </tr>
 
                                         <?php
@@ -474,18 +495,17 @@ $form_detail_array = array();
                         </div>
                     </div>
                 </form>
-            </div> 
-        </div>   
+            </div>
+        </div>
 
 
 
 
-        <?php 
-        
-        if (isset($_POST['submit_insert_form']))
-         { 
+        <?php
+
+        if (isset($_POST['submit_insert_form'])) {
             include "insert_form.php";
-         }   
+        }
 
         ?>
 
@@ -495,4 +515,4 @@ $form_detail_array = array();
 
 
 
-        <?php include "footer.php"; ?>
+<?php include "footer.php"; ?>

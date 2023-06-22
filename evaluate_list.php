@@ -501,7 +501,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                 <div style="overflow-x:auto;">
 
-                                    <table id="DataTable1" class="table table-bordered table-striped">
+                                    <table id="DataTable22" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
 
@@ -601,7 +601,6 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                                         <tr>
                                                             <th scope="row">
-
                                                                 <?php echo  $form_group_order; ?>.<?php echo $form_detail_order; ?>
                                                             </th>
 
@@ -730,6 +729,13 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                         <?php } else { ?>
 
+
+
+
+
+
+
+
                                             <tbody>
                                                 <?PHP
 
@@ -743,24 +749,28 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                     $form_detail_id          = $result_detail['form_detail_id'];
                                                     $form_detail_order       = $result_detail['form_detail_order'];
                                                     $form_main_id            = $result_detail['form_main_id'];
-                                                    $form_detail_name       = $result_detail['form_detail_name'];
+                                                    $form_detail_name        = $result_detail['form_detail_name'];
                                                     $form_detail_weight      = $result_detail['form_detail_weight'];
                                                     $form_detail_score       = $result_detail['form_detail_score'];
                                                     $form_detail_score_full  = $result_detail['form_detail_score_full'];
                                                     $form_detail_field       = $result_detail['form_detail_field'];
 
+
                                                     $form_detail_array[] = array(
-                                                        'form_group_id' => '',
-                                                        'form_main_id' => $form_main_id,
-                                                        'form_group_order' => '',
-                                                        'form_group_name' => '',
+
+                                                 
                                                         'form_detail_id' => $result_detail['form_detail_id'],
                                                         'form_detail_order' => $result_detail['form_detail_order'],
                                                         'form_detail_name' => $result_detail['form_detail_name'],
                                                         'form_detail_weight' => $result_detail['form_detail_weight'],
                                                         'form_detail_score' => $result_detail['form_detail_score'],
-                                                        'form_detail_score_full' => $result_detail['form_detail_score_full']
+                                                        'form_detail_score_full' => $result_detail['form_detail_score_full'],
+                                                        'field_name' => $result_detail['form_detail_field']
+
                                                     );
+
+                                                    $field_name     = $result_detail['form_detail_field'];
+                                                    $form_detail_id = $result_detail['form_detail_id'];
                                                 ?>
 
 
@@ -769,6 +779,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                                         <td><?php echo $form_detail_order; ?> </td>
                                                         <td><?php echo $form_detail_name; ?> </td>
+
                                                         <?php if (in_array('W', $array_form_main_detail_step)) {  //เพิ่ม แบ่งหัวข้อรายการประเมิน 
                                                         ?>
                                                             <td><?php echo $form_detail_weight; ?> </td>
@@ -778,24 +789,110 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                         ?>
                                                             <td><?php echo $form_detail_score_full; ?> </td>
                                                         <?php } ?>
-                                                        <td><?php echo $form_detail_score; ?> </td>
+
+
+                                                        <td>
+                                                            
+                                                        <?php
+                                                                if (isset($result_check_["{$field_name}_grade"])) {
+                                                                    $grade =  $result_check_["{$field_name}_grade"];
+                                                                ?>
+
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                        <option value=""> เลือก คะแนน </option>
+                                                                        <?php
+                                                                        $step1 = explode(",", $form_detail_score); // แยก   
+                                                                        $step2 = count($step1);
+                                                                        for ($ct = 0; $ct <= $step2; $ct++) {
+                                                                            $step = $step1[$ct];
+                                                                            if ($step != "") {
+                                                                        ?>
+                                                                                <option value="<?php echo $step; ?>" <?php if (!(strcmp($step, $grade))) {
+                                                                                                                            echo "selected=\"selected\"";
+                                                                                                                        } ?>><?php echo $step; ?></option>
+                                                                        <?php
+                                                                            } //if
+                                                                        } //for
+                                                                        ?>
+                                                                    </select>
+
+                                                                    <input name="<?php echo $field_name; ?>_grade_s" type="hidden" value="<?php echo $grade; ?>" />
+
+
+
+                                                                <?php } else { ?>
+
+
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                        <option value=""> เลือก คะแนน </option>
+                                                                        <?php
+                                                                        $step1 = explode(",", $form_detail_score); // แยก   
+                                                                        $step2 = count($step1);
+                                                                        for ($ct = 0; $ct <= $step2; $ct++) {
+                                                                            $step = $step1[$ct];
+                                                                            if ($step != "") {
+                                                                        ?>
+                                                                                <option value="<?php echo $step; ?>"><?php echo $step; ?></option>
+                                                                        <?php
+                                                                            } //if
+                                                                        } //for
+                                                                        ?>
+                                                                    </select>
+
+                                                                <?php } ?>
+                                                                <div class="invalid-feedback"> กรุณากรอก <?php echo $form_detail_name; ?></div>
+                                                    
+                                                       </td>
+                                                        <td>
+                                                        <?php
+                                                        if (in_array('W', $array_form_main_detail_step)) {
+
+                                                            if (!empty($grade)) {
+                                                                $sum_grade = $grade * $form_detail_weight;
+                                                                echo $sum_grade;
+                                                            } else {
+                                                                $sum_grade = 0;
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </td>
+
+
+
                                                     </tr>
+
+
+                                                    <?php
+                                                        if (in_array('W', $array_form_main_detail_step)) {
+                                                            $total  = $total + $sum_grade;
+                                                        }
+                                                    }   ?>
+
+                                            
+
+                                                <?php
+                                                if (in_array('W', $array_form_main_detail_step)) {
+                                                ?>
+
+
+                                                    <tr>
+                                                        <th colspan="<?php echo $col - 2; ?>"> </th>
+                                                        <th>
+                                                            <h3 Align=right> ผลรวมคะแนน </h3>
+                                                        </th>
+                                                        <th>
+                                                            <h3><B><?php echo $total; ?><B></h3>
+                                                        </th>
+                                                    </tr>
+
 
                                                 <?php
                                                 }
                                                 ?>
 
+
+
                                             </tbody>
-
-
-                                            <tr>
-                                                <th colspan="<?php echo $col; ?>">
-                                                    ผลรวม : <?php ?>
-
-
-                                                </th>
-
-                                            </tr>
 
                                         <?php } ?>
 
