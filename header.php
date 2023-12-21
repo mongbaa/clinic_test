@@ -325,6 +325,16 @@ $bm->start(); // เริ่มต้นจับเวลา
                             <span>ประเมินการสอบ</span>
                         </a>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="report.php">
+                            <i class="bx bxs-file"></i>
+                            <span>รายงาน</span>
+                        </a>
+                    </li>
+
+
                 <?PHP } ?>
 
 
@@ -366,6 +376,13 @@ $bm->start(); // เริ่มต้นจับเวลา
                         <a class="nav-link " href="report.php">
                             <i class="bx bxs-file"></i>
                             <span>รายงาน</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " href="endo_report.php">
+                            <i class="bx bxs-file"></i>
+                            <span>Endo</span>
                         </a>
                     </li>
 

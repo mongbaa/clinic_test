@@ -2,10 +2,6 @@
  session_start();
  include "config.inc.php";
  include "config.inc_hosxp.php";	
-
-
-
-
 					$sql =
 						"   SELECT  o.loginname, o.passweb, o.doctorcode,
 									d.pname, d.fname, d.lname, d.doctor_type_id
@@ -16,7 +12,6 @@
 									";
 					//$sql .=	" AND d.doctor_type_id NOT IN ('1', '2', '3')  AND o.passweb = '" . md5($_POST["password"]) . "'";
 					//$sql .=	"  AND o.passweb = '" . md5($_POST["password"]) . "'";
-					
 					$query = mysqli_query($conn_hosxp, $sql);
 					$rows = mysqli_num_rows($query);
 					$result = mysqli_fetch_assoc($query);

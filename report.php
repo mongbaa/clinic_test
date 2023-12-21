@@ -43,7 +43,60 @@ if (isset($_SESSION['error'])) {
 }
 ?>
 
+<style>
+            .table-responsive {
+                height: 500px;
+                overflow: scroll;
+            }
 
+            thead tr:nth-child(1) th {
+                background: white;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                background-color: #dddddd;
+                color: black;
+            }
+
+            th:first-child,
+
+
+            td:first-child {
+                position: sticky;
+                left: 0px;
+            }
+
+            td:first-child {
+                background-color: whitesmoke;
+                color: black;
+            }
+
+
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                border-style: dotted;
+
+            }
+        </style>
 <div class="pagetitle">
     <h1>รายงาน</h1>
     <nav>
@@ -157,86 +210,161 @@ if (isset($_GET['type_work_id'])) {
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title"> รายงานประเมินการสอบปฏิบัติ 9 งาน ศ.ป.ท. </h5>
-                <table id="DataTable1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>รหัส</th>
-                            <th>ชื่อ - สกุล</th>
-                            <?PHP
-                                $form_main_array = array();
-                                $sql_form_main  = " SELECT * FROM tbl_form_main as form_main ";
-                                $sql_form_main .= " where  form_main.type_work_id = $type_work_id ";
-                                $sql_form_main .= " ORDER BY form_main.form_main_id ASC ";
-                                $query_form_main = $conn->query($sql_form_main);
-                                while ($result_form_main = $query_form_main->fetch_assoc()) {
-                                    $i++;
-                                    $form_main_name = $result_form_main['form_main_name'];
-                                    $form_main_id = $result_form_main['form_main_id'];
-                                    $form_main_detail = $result_form_main['form_main_detail'];
-
-                                    $form_main_array[] = array(
-                                        'form_main_name' => $result_form_main['form_main_name'],
-                                        'form_main_id' => $result_form_main['form_main_id'],
-                                        'form_main_table' => $result_form_main['form_main_table']
-                                    );
-
-
-                            ?>
-
-                                    <th> <?php echo $form_main_name; ?> </th>
-
-                            <?php } ?>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?PHP
-                        include "config.inc_clinic.php";
-                        $i = 0;
-                        $sql_student   =  " SELECT *FROM  tbl_student ";
-                        if ($level_search == "all") {
-                            $sql_student  .=  " ORDER BY student_id ASC   ";
-                        } else if ($student_search != "") {
-                            $sql_student   .=  " where student_id like '%$student_search%' or student_name like '%$student_search%' or student_lastname like '%$student_search%' ";
-                            $sql_student  .=  " ORDER BY student_id ASC  ";
-                        } else {
-                            $sql_student   .=  " where student_level = $level_search ";
-                            $sql_student  .=  " ORDER BY student_id ASC  ";
-                        }
-                        $query_student = $conn_clinic->query($sql_student);
-                        while ($result_student = $query_student->fetch_assoc()) {
-                            $i++;
-                            $student_id = $result_student['student_id'];
-                        ?>
+                <div class="table-responsive">
+                    <table id="DataTable1" class="table table-bordered table-striped">
+                        <thead>
                             <tr>
-                                <th scope="row"> <?php echo $result_student['student_id']; ?> </th>
-                                <td> <?php echo $result_student['student_name']; ?> <?php echo $result_student['student_lastname']; ?> </td>
-                                <?php
-                                    foreach ($form_main_array as $values => $data) {
-                                        $form_main_table = $data['form_main_table'];
-                                        $form_main_id = $data['form_main_id'];
+                                <th></th>
+                                <th></th>
+                                <?PHP
+                                    $form_main_array = array();
+                                    $sql_form_main  = " SELECT * FROM tbl_form_main as form_main ";
+                                    $sql_form_main .= " where  form_main.type_work_id = $type_work_id ";
+                                    $sql_form_main .= " ORDER BY form_main.form_main_id ASC ";
+                                    $query_form_main = $conn->query($sql_form_main);
+                                    while ($result_form_main = $query_form_main->fetch_assoc()) {
+                                        $i++;
+                                        $form_main_name = $result_form_main['form_main_name'];
+                                        $form_main_id = $result_form_main['form_main_id'];
+                                        $form_main_detail = $result_form_main['form_main_detail'];
 
-                                            $sql_detail = " SELECT * FROM tbl_detail as d ";
-                                            $sql_detail .= " WHERE d.form_main_id = '$form_main_id' and  student_id = $student_id ";
-                                            $query_detail = $conn->query($sql_detail);
-                                            if($result_detail = $query_detail->fetch_assoc()){
-                                                $detail_id = $result_detail['detail_id'];
-                                            }else{
-                                                
-                                                $detail_id = '';
-                                            }
+                                        $form_main_array[] = array(
+                                            'form_main_name' => $result_form_main['form_main_name'],
+                                            'form_main_id' => $result_form_main['form_main_id'],
+                                            'form_main_table' => $result_form_main['form_main_table']
+                                        );
+
+
                                 ?>
-                                
-                                 <td>   <?php echo $form_main_table; ?>  /   <?php echo $form_main_id; ?> / <?php echo $detail_id; ?>  </td>
+
+                                        <th colspan="3" ><center> <?php echo $form_main_name; ?>  </center> </th>
 
                                 <?php } ?>
                             </tr>
-                        <?php
-                        }
-                        $conn_clinic->close();
-                        ?>
-                    </tbody>
-                </table>
+
+                            <tr>
+                                <th>รหัส</th>
+                                <th>ชื่อ - สกุล</th>
+                                <?PHP
+                                    foreach ($form_main_array as $values => $data) {
+                                        $form_main_table = $data['form_main_table'];
+                                        $form_main_id = $data['form_main_id'];
+                                ?>
+
+                                        <th><center> ครั้ง  </center> </th>
+                                        <th><center> ผ่าน </th>
+                                        <th><center> Incomplete </th>
+
+                                <?php } ?>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?PHP
+                            include "config.inc_clinic.php";
+                            $i = 0;
+                            $sql_student   =  " SELECT *FROM  tbl_student ";
+                            if ($level_search == "all") {
+                                $sql_student  .=  " ORDER BY student_id ASC   ";
+                            } else if ($student_search != "") {
+                                $sql_student   .=  " where student_id like '%$student_search%' or student_name like '%$student_search%' or student_lastname like '%$student_search%' ";
+                                $sql_student  .=  " ORDER BY student_id ASC  ";
+                            } else {
+                                $sql_student   .=  " where student_level = $level_search ";
+                                $sql_student  .=  " ORDER BY student_id ASC  ";
+                            }
+                            $query_student = $conn_clinic->query($sql_student);
+                            while ($result_student = $query_student->fetch_assoc()) {
+                                $i++;
+                                $student_id = $result_student['student_id'];
+                            ?>
+                                <tr>
+                                    <th scope="row"> <?php echo $result_student['student_id']; ?> </th>
+                                    <td> <?php echo $result_student['student_name']; ?> <?php echo $result_student['student_lastname']; ?> </td>
+                                    <?php
+                                        foreach ($form_main_array as $values => $data) {
+                                        $form_main_table = $data['form_main_table'];
+                                        $form_main_id = $data['form_main_id'];
+                                    ?>
+                                    
+                                    <td>   
+                                        <center>
+                                                <?php
+                                                $sql_detail = " SELECT COUNT( * ) as Count_row FROM tbl_detail as d ";
+                                                $sql_detail .= " WHERE d.form_main_id = '$form_main_id' and  student_id = $student_id ";
+                                                $query_detail = $conn->query($sql_detail);
+                                                if($result_detail = $query_detail->fetch_assoc()){
+                                                    $Count_row = $result_detail['Count_row'];
+                                                }else{
+                                                    
+                                                    $Count_row = '';
+                                                }
+                                                
+                                                    echo $Count_row; 
+                                                ?> 
+                                        </center>
+                                    </td>
+
+
+                                    <?php
+                                        $sql_complete = " SELECT COUNT( * ) as Count_complete FROM tbl_detail as d ";
+                                        $sql_complete .= " WHERE d.form_main_id = '$form_main_id' and  student_id = $student_id and  detail_complete = 1";
+                                        $query_complete = $conn->query($sql_complete);
+                                        if($result_complete = $query_complete->fetch_assoc()){
+                                            $Count_complete = $result_complete['Count_complete'];
+                                        }else{
+                                            
+                                            $Count_complete = 0;
+                                        }
+                                    ?> 
+
+                                    <?php if($Count_complete >= 1){?>
+                                        <td class="table-success">
+                                    <?php }else{?> 
+                                        <td>
+                                    <?php }?>
+
+                                        <center>
+                                                <?php
+                                                    echo $Count_complete; 
+                                                ?> 
+                                        </center>
+
+                                    </td>
+
+
+
+                                    <?php
+                                        $sql_complete = " SELECT COUNT( * ) as Count_incomplete FROM tbl_detail as d ";
+                                        $sql_complete .= " WHERE d.form_main_id = '$form_main_id' and  student_id = $student_id and  detail_complete = 2";
+                                        $query_complete = $conn->query($sql_complete);
+                                        if($result_complete = $query_complete->fetch_assoc()){
+                                            $Count_incomplete = $result_complete['Count_incomplete'];
+                                        }else{
+                                            
+                                            $Count_incomplete = 0;
+                                        }
+                                    ?> 
+                                    <td>
+                                        <center>
+                                                <?php
+                                                    echo $Count_incomplete; 
+                                                ?> 
+                                        </center>
+
+                                    </td>
+
+
+
+                                    <?php } ?>
+                                </tr>
+                            <?php
+                            }
+                            $conn_clinic->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

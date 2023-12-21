@@ -65,7 +65,7 @@ if (isset($_SESSION['arrange_date_get'])) {
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="detail_work.php">เลือกวันที่</a></li>
+            <li class="breadcrumb-item"><a href="">เลือกวันที่</a></li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -153,6 +153,122 @@ if (isset($_SESSION['arrange_date_get'])) {
                       
      
                       
+                        <h3><?php echo $result['student_id']; ?></h3>
+                        <B><?php echo $result['student_name']; ?> <?php echo $result['student_lastname']; ?></B>
+                        <br>
+                                <?php echo $result['form_main_name']; ?>
+                                <br>
+                                <?php
+                                foreach ($array_detail_tooth as $id => $value) {
+                                    if (!empty($value)) {
+                                        echo '<span class="btn btn-warning rounded-pill btn-sm">' . $value . '</span> ' . " ";
+                                    }
+                                }
+                                foreach ($array_detail_surface as $id => $value) {
+                                    if (!empty($value)) {
+                                        echo '<span class="btn btn-info rounded-pill btn-sm">' . $value . '</span> ' . " ";
+                                    }
+                                }
+                                if (!empty($detail_root)) {
+                                    echo "|";
+                                    echo $result['detail_root'];
+                                }
+                                
+                                ?>
+                    </a>  
+
+                         
+                  
+                                <?php
+                                
+                               // echo $arrange_check_eval;
+                                        switch ($arrange_check_eval) { // Harder page
+                                            case 0:
+                                                echo "<a href='evaluate_list.php?detail_id=$detail_id' target='_blank' class='btn btn-secondary rounded-pill btn-sm'>รอประเมิน </a> ";
+                                               //echo " <a href='pdf.php?detail_id=$detail_id' target='_blank' class='btn btn-secondary rounded-pill btn-sm'>รอประเมิน PDF</a> ";
+                                                break;
+                                            case 1:
+                                                echo " <a href='evaluate_list.php?detail_id=$detail_id' target='_blank' class='btn btn-success rounded-pill btn-sm'>ประเมินแล้ว  </a>";
+                                               // echo " <a href='pdf.php?detail_id=$detail_id' target='_blank' class='btn btn-success rounded-pill btn-sm'>ประเมินแล้ว PDF </a>";
+                                                break;
+                                            case 2:
+                                                echo " <a href='pdf.php?detail_id=$detail_id' target='_blank' class='btn btn-danger rounded-pill btn-sm'> ไม่ประเมิน </a>";
+                                                break;
+                                            default:
+                                                echo  "";
+                                        }
+                                ?>
+
+                </center>
+                </div>
+            </div>
+        <?php }
+        $conn->close(); ?>
+    </div>
+
+
+
+    <hr>
+    <div class="row gy-4">
+        <?PHP
+            $detail_array = array();
+            include "config.inc.php";
+            $sql = " SELECT * FROM db_clinic_test.tbl_arrange as a ";
+            $sql .= " INNER JOIN db_clinic_test.tbl_detail    as d on a.detail_id     = d.detail_id ";
+            $sql .= " INNER JOIN db_clinic_test.tbl_form_main as f on d.form_main_id  = f.form_main_id ";
+            $sql .= " INNER JOIN db_clinic.tbl_teacher as t on a.teacher_id  = t.teacher_id ";
+            $sql .= " INNER JOIN db_clinic.tbl_student as s on d.student_id  = s.student_id ";
+         
+           if($loginname == 'mongkol.th'){ 
+
+            $sql .= " where a.arrange_check_eval = 0   ";
+        
+           }else{
+            $sql .= " where a.arrange_check_eval = 0 and a.teacher_id = '$teacher_id'  ";
+
+           }
+            $sql .= " ORDER BY a.arrange_id DESC ";
+            $query = $conn->query($sql);
+            $i = 0;
+            while ($result = $query->fetch_assoc()) {
+                $i++;
+                $detail_id = $result['detail_id'];
+                $arrange_id = $result['arrange_id'];
+                $teacher_id = $result['teacher_id'];
+                $detail_tooth = $result['detail_tooth'];
+                $detail_surface = $result['detail_surface'];
+                $arrange_date = $result['arrange_date'];
+                $student_id =  $result['student_id'];
+                $arrange_check_eval =  $result['arrange_check_eval'];
+
+                $array_detail_surface = json_decode($detail_surface, true);
+                $array_detail_tooth = json_decode($detail_tooth, true);
+                //active
+                if ($arrange_id == $arrange_id_s) {
+                    $active = "active";
+                } else {
+                    $active = "";
+                }
+        ?>
+
+            <div class="col-lg-3">
+                <div class="info-box card">
+                <center>
+                   
+                    <a href="evaluate_list.php?detail_id=<?php echo $detail_id;?>" class="">
+                     
+                    <img src="../pic_students/<?php echo $result['student_id']; ?>.jpg" width="120" height="120" style="border-radius:50%;" class="img-circle responsive" alt="<?php echo $result['student_id']; ?>">
+                      
+                  
+                    <h4> 
+                       
+                         <?php  
+                         $date=date_create($arrange_date);
+                         echo date_format($date,"d-m-Y"); 
+                         ?>
+                       
+                    </h4>
+                    <span class="btn btn-danger rounded-pill btn-sm "> ค้างการประเมิน </span>
                         <h3><?php echo $result['student_id']; ?></h3>
                         <B><?php echo $result['student_name']; ?> <?php echo $result['student_lastname']; ?></B>
                         <br>

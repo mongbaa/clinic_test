@@ -99,7 +99,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="">อนุสาขาวิชา</a></li>
+            <li class="breadcrumb-item"><a href="detail_work.php">อนุสาขาวิชา</a></li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -235,7 +235,6 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
             <div class="d-flex justify-content-center">
                 <div class="col-xxl-10 col-md-12">
 
-                    <form class="needs-validation" novalidate method="post" action="" enctype="multipart/form-data">
                         <div class="card">
 
 
@@ -617,7 +616,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                                     $grade =  $result_check_["{$field_name}_grade"];
                                                                 ?>
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill" disabled>
                                                                         <option value=""> เลือก คะแนน </option>
                                                                         <?php
                                                                         $step1 = explode(",", $form_detail_score); // แยก   
@@ -635,14 +634,14 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                                         ?>
                                                                     </select>
 
-                                                                    <input name="<?php echo $field_name; ?>_grade_s" type="hidden" value="<?php echo $grade; ?>" />
+                                                                    <input name="<?php echo $field_name; ?>_grade_s" type="hidden" value="<?php echo $grade; ?>" disabled/>
 
 
 
                                                                 <?php } else { ?>
 
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill" disabled>
                                                                         <option value=""> เลือก คะแนน </option>
                                                                         <?php
                                                                         $step1 = explode(",", $form_detail_score); // แยก   
@@ -792,7 +791,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                                     $grade =  $result_check_["{$field_name}_grade"];
                                                                 ?>
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill" disabled>
                                                                         <option value=""> เลือก คะแนน </option>
                                                                         <?php
                                                                         $step1 = explode(",", $form_detail_score); // แยก   
@@ -817,7 +816,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                                                 <?php } else { ?>
 
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill" disabled>
                                                                         <option value=""> เลือก คะแนน </option>
                                                                         <?php
                                                                         $step1 = explode(",", $form_detail_score); // แยก   
@@ -905,7 +904,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                 <?php
 
-                                $sql_check_complete = "SELECT * FROM tbl_detail where detail_id = $detail_id ";
+                                $sql_check_complete = "SELECT * FROM tbl_detail where detail_id = $detail_id and detail_complete = 1";
                                 $query_check_complete = $conn->query($sql_check_complete);
                                 if ($row_check_complete = $query_check_complete->fetch_assoc()) {
                                     $detail_complete = $row_check_complete['detail_complete'];
@@ -916,15 +915,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
                                 <center>
-                                   
                                     <h3>
-                                        <input name="detail_complete" class="form-check-input" type="radio" value="2" id="invalidCheck3" <?php if ($detail_complete == '2') {
-                                                                                                                                                echo "checked ";
-                                                                                                                                            } else {
-                                                                                                                                            } ?> required>
-                                        <label class="form-check-label" for="invalidCheck3"> Incomplete </label>
-                                        &nbsp;&nbsp;
-
                                         <input name="detail_complete" class="form-check-input" type="radio" value="1" id="invalidCheck1" <?php if ($detail_complete == '1') {
                                                                                                                                                 echo "checked ";
                                                                                                                                             } else {
@@ -969,26 +960,6 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button name="submit_insert_form" type="submit" value="submit_insert_form" class="btn btn-primary">Submit</button>
-                            </div>
-
-
-
-
-
-           
-
-                   
-    
-                    <a href="evaluate_cancel.php?detail_id=<?php echo $detail_id;?>&form_main_id=<?php echo $form_main_id;?>
-                    "class="btn btn-danger " onClick="return confirm('กรุณายืนยันการยกเลิกคะแนนอีกครั้ง !!!')"> ยกเลิก</a>
-    
-                  
-
-
-                    </form>
                 </div>
             </div>
 
@@ -1002,14 +973,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
 
-    <?php
-
-    if (isset($_POST['submit_insert_form'])) {
-        //include "insert_evaluate.php";
-        include "insert_form.php";
-    }
-
-    ?>
+   
 
 
     </div>

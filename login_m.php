@@ -69,7 +69,7 @@ unset($_SESSION['error']);
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="username" class="form-label"> Username (ระบบ Hosxp) </label>
-                                                <input name="username" type="text" class="form-control" placeholder="Username"  required>
+                                                <input name="username" type="text" class="form-control" placeholder="Username" value="aree.kan"  required>
                                                 <div class="invalid-feedback"> กรุณากรอก Username </div>
                                             </div>
                                         </div>
@@ -77,7 +77,7 @@ unset($_SESSION['error']);
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="password" class="form-label"> Password </label>
-                                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                                <input type="password" name="password" class="form-control" placeholder="Password" value="aree.kan" required>
                                                 <div class="invalid-feedback"> กรุณากรอก password </div>
                                             </div>
                                         </div>

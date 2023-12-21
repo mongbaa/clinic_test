@@ -99,7 +99,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item"><a href="">อนุสาขาวิชา</a></li>
+            <li class="breadcrumb-item"><a href="detail_work.php">อนุสาขาวิชา</a></li>
         </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -195,12 +195,35 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                         $edit_time_end[$x] = $result_check_["time_end{$x}"];
                     }
 
+                    // if (isset($result_check_["count1"]) && !empty($result_check_["count1"])) { $edit_count1 = $result_check_["count1"]; } else { $edit_count1 = '';  }
+                    // if (isset($result_check_["last_date1"]) && !empty($result_check_["last_date1"])) { $edit_last_date1 = $result_check_["last_date1"]; } else { $edit_last_date1 = '0000-00-00';  }
+                    // if (isset($result_check_["time_start1"]) && !empty($result_check_["time_start1"])) { $edit_time_start1 = $result_check_["time_start1"]; } else { $edit_time_start1 = '00:00:00';  }
+                    // if (isset($result_check_["time_end1"])   && !empty($result_check_["time_end1"])) {   $edit_time_end1   = $result_check_["time_end1"];   } else { $edit_time_end1 = '00:00:00';  }
+
+                    // if (isset($result_check_["count2"]) && !empty($result_check_["count2"])) { $edit_count2 = $result_check_["count2"]; } else { $edit_count2 = ''; }
+                    // if (isset($result_check_["last_date2"]) && !empty($result_check_["last_date2"])) { $edit_last_date2 = $result_check_["last_date2"]; } else { $edit_last_date2 = '0000-00-00'; }
+                    // if (isset($result_check_["time_start2"]) && !empty($result_check_["time_start2"])) { $edit_time_start2 = $result_check_["time_start2"]; } else { $edit_time_start2 = '00:00:00'; }
+                    // if (isset($result_check_["time_end2"]) && !empty($result_check_["time_end2"])) { $edit_time_end2 = $result_check_["time_end2"]; } else { $edit_time_end2 = '00:00:00'; }
+
+                    // if (isset($result_check_["count3"]) && !empty($result_check_["count3"])) { $edit_count3 = $result_check_["count3"]; } else { $edit_count3 = ''; }
+                    // if (isset($result_check_["last_date3"]) && !empty($result_check_["last_date3"])) { $edit_last_date3 = $result_check_["last_date3"]; } else { $edit_last_date3 = '0000-00-00'; }
+                    // if (isset($result_check_["time_start3"]) && !empty($result_check_["time_start3"])) { $edit_time_start3 = $result_check_["time_start3"]; } else { $edit_time_start3 = '00:00:00'; }
+                    // if (isset($result_check_["time_end3"]) && !empty($result_check_["time_end3"])) { $edit_time_end3 = $result_check_["time_end3"]; } else { $edit_time_end3 = '00:00:00'; }
+
+                    // if (isset($result_check_["count4"]) && !empty($result_check_["count4"])) { $edit_count4 = $result_check_["count4"]; } else { $edit_count4 = ''; }
+                    // if (isset($result_check_["last_date4"]) && !empty($result_check_["last_date4"])) { $edit_last_date4 = $result_check_["last_date4"]; } else { $edit_last_date4 = '0000-00-00'; }
+                    // if (isset($result_check_["time_start4"]) && !empty($result_check_["time_start4"])) { $edit_time_start4 = $result_check_["time_start4"]; } else { $edit_time_start4 = '00:00:00'; }
+                    // if (isset($result_check_["time_end4"]) && !empty($result_check_["time_end4"])) { $edit_time_end4 = $result_check_["time_end4"]; } else { $edit_time_end4 = '00:00:00'; }
+
+
+
                 } else {
                     $edit_last_date = $result_check_['last_date'];
                     $edit_time_start = $result_check_['time_start'];
                     $edit_time_end = $result_check_['time_end'];
                 }
             } else {
+
                 $edit_id = '';
                 $edit_comment = '';
 
@@ -228,6 +251,8 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
             }
 
             ?>
+
+
 
 
 
@@ -329,9 +354,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
                                 <div class="row">
-
-
-
+                                   
 
 
                                     <?php if (in_array('ct', $array_form_main_detail)) { //// นับครั้ง 
@@ -346,10 +369,10 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                             $edit_time_start[$xx];
                                             $edit_time_end[$xx];
                                         ?>
-                                           <div class="col-sm-2">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label for="count" class="form-label">ครั้งที่ </label>
-                                                    <input type="number" name="count<?php echo $xx; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_count[$xx]; ?>">
+                                                    <input type="number" name="count<?php echo $x; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_count[$xx]; ?>">
                                                     <div class="invalid-feedback"> กรุณากรอก ครั้งที่ </div>
                                                 </div>
                                             </div>
@@ -358,7 +381,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="last_date" class="form-label">วันที่</label>
-                                                    <input type="date" name="last_date<?php echo $xx; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_last_date[$xx]; ?>">
+                                                    <input type="date" name="last_date<?php echo $x; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_last_date[$xx]; ?>">
                                                     <div class="invalid-feedback"> กรุณากรอก วันที่ประเมินการสอบ </div>
                                                 </div>
                                             </div>
@@ -368,8 +391,8 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="time_start" class="form-label">เวลาเริ่มสอบ  time_start<?php echo $xx; ?></label>
-                                                    <input type="time" name="time_start<?php echo $xx; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_start[$xx]; ?>">
+                                                    <label for="time_start" class="form-label">เวลาเริ่มสอบ </label>
+                                                    <input type="time" name="time_start<?php echo $x; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_start[$xx]; ?>">
                                                     <div class="invalid-feedback"> กรุณากรอก เวลาเริ่มสอบ </div>
                                                 </div>
                                             </div>
@@ -378,7 +401,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="time_end" class="form-label">เวลายุติการสอบ </label>
-                                                    <input type="time" name="time_end<?php echo $xx; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_end[$xx]; ?>">
+                                                    <input type="time" name="time_end<?php echo $x; ?>" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_end[$xx]; ?>">
                                                     <div class="invalid-feedback"> กรุณากรอก เวลายุติการสอบ </div>
                                                 </div>
                                             </div>
@@ -408,7 +431,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                     <?php   } else {  ?>
 
-                                        
+
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -421,41 +444,41 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
 
-<?php if($type_work_id == 4) {?>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="time_start" class="form-label">เวลาเริ่มสอบ </label>
-                                                <input type="time" name="time_start" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_start; ?>" required>
-                                                <div class="invalid-feedback"> กรุณากรอก เวลาเริ่มสอบ </div>
+                                        <?php if ($type_work_id == 4) { ?>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="time_start" class="form-label">เวลาเริ่มสอบ </label>
+                                                    <input type="time" name="time_start" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_start; ?>" required>
+                                                    <div class="invalid-feedback"> กรุณากรอก เวลาเริ่มสอบ </div>
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="time_end" class="form-label">เวลายุติการสอบ</label>
-                                                <input type="time" name="time_end" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_end; ?>" required>
-                                                <div class="invalid-feedback"> กรุณากรอก เวลายุติการสอบ </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="time_end" class="form-label">เวลายุติการสอบ</label>
+                                                    <input type="time" name="time_end" class="form-control rounded-pill" placeholder="วันที่ประเมินการสอบ" value="<?php echo $edit_time_end; ?>" required>
+                                                    <div class="invalid-feedback"> กรุณากรอก เวลายุติการสอบ </div>
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="time_end" class="form-label"> <B><?php echo diff2time($edit_time_start, $edit_time_end); ?></B></label>
-                                                <input type="number" name="time_number" class="form-control rounded-pill" step="0.01" value="<?php echo diff2time_short($edit_time_start, $edit_time_end); ?>" disabled>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="time_end" class="form-label"> <B><?php echo diff2time($edit_time_start, $edit_time_end); ?></B></label>
+                                                    <input type="number" name="time_number" class="form-control rounded-pill" step="0.01" value="<?php echo diff2time_short($edit_time_start, $edit_time_end); ?>" disabled>
+                                                </div>
                                             </div>
-                                        </div>
-<?php }else{ ?>
+                                        <?php } else { ?>
 
 
 
 
-<input name="time_start" type="hidden" value="<?php echo date('H:i:s'); ?>" />
+                                            <input name="time_start" type="hidden" value="<?php echo date('H:i:s'); ?>" />
 
 
-    
-<?php } ?>
+
+                                        <?php } ?>
 
 
 
@@ -752,7 +775,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                                     $form_detail_array[] = array(
 
-                                                 
+
                                                         'form_detail_id' => $result_detail['form_detail_id'],
                                                         'form_detail_order' => $result_detail['form_detail_order'],
                                                         'form_detail_name' => $result_detail['form_detail_name'],
@@ -786,83 +809,83 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
                                                         <td>
-                                                            
-                                                        <?php
-                                                                if (isset($result_check_["{$field_name}_grade"])) {
-                                                                    $grade =  $result_check_["{$field_name}_grade"];
-                                                                ?>
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
-                                                                        <option value=""> เลือก คะแนน </option>
-                                                                        <?php
-                                                                        $step1 = explode(",", $form_detail_score); // แยก   
-                                                                        $step2 = count($step1);
-                                                                        for ($ct = 0; $ct <= $step2; $ct++) {
-                                                                            $step = $step1[$ct];
-                                                                            if ($step != "") {
-                                                                        ?>
-                                                                                <option value="<?php echo $step; ?>" <?php if (!(strcmp($step, $grade))) {
-                                                                                                                            echo "selected=\"selected\"";
-                                                                                                                        } ?>><?php echo $step; ?></option>
-                                                                        <?php
-                                                                            } //if
-                                                                        } //for
-                                                                        ?>
-                                                                    </select>
+                                                            <?php
+                                                            if (isset($result_check_["{$field_name}_grade"])) {
+                                                                $grade =  $result_check_["{$field_name}_grade"];
+                                                            ?>
 
-                                                                    <input name="<?php echo $field_name; ?>_grade_s" type="hidden" value="<?php echo $grade; ?>" />
+                                                                <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <option value=""> เลือก คะแนน </option>
+                                                                    <?php
+                                                                    $step1 = explode(",", $form_detail_score); // แยก   
+                                                                    $step2 = count($step1);
+                                                                    for ($ct = 0; $ct <= $step2; $ct++) {
+                                                                        $step = $step1[$ct];
+                                                                        if ($step != "") {
+                                                                    ?>
+                                                                            <option value="<?php echo $step; ?>" <?php if (!(strcmp($step, $grade))) {
+                                                                                                                        echo "selected=\"selected\"";
+                                                                                                                    } ?>><?php echo $step; ?></option>
+                                                                    <?php
+                                                                        } //if
+                                                                    } //for
+                                                                    ?>
+                                                                </select>
 
-
-
-                                                                <?php } else { ?>
+                                                                <input name="<?php echo $field_name; ?>_grade_s" type="hidden" value="<?php echo $grade; ?>" />
 
 
-                                                                    <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
-                                                                        <option value=""> เลือก คะแนน </option>
-                                                                        <?php
-                                                                        $step1 = explode(",", $form_detail_score); // แยก   
-                                                                        $step2 = count($step1);
-                                                                        for ($ct = 0; $ct <= $step2; $ct++) {
-                                                                            $step = $step1[$ct];
-                                                                            if ($step != "") {
-                                                                        ?>
-                                                                                <option value="<?php echo $step; ?>"><?php echo $step; ?></option>
-                                                                        <?php
-                                                                            } //if
-                                                                        } //for
-                                                                        ?>
-                                                                    </select>
 
-                                                                <?php } ?>
-                                                                <div class="invalid-feedback"> กรุณากรอก <?php echo $form_detail_name; ?></div>
-                                                    
-                                                       </td>
+                                                            <?php } else { ?>
+
+
+                                                                <select name="<?php echo $field_name; ?>_grade" id="<?php echo $field_name; ?>_grade" class="form-select rounded-pill">
+                                                                    <option value=""> เลือก คะแนน </option>
+                                                                    <?php
+                                                                    $step1 = explode(",", $form_detail_score); // แยก   
+                                                                    $step2 = count($step1);
+                                                                    for ($ct = 0; $ct <= $step2; $ct++) {
+                                                                        $step = $step1[$ct];
+                                                                        if ($step != "") {
+                                                                    ?>
+                                                                            <option value="<?php echo $step; ?>"><?php echo $step; ?></option>
+                                                                    <?php
+                                                                        } //if
+                                                                    } //for
+                                                                    ?>
+                                                                </select>
+
+                                                            <?php } ?>
+                                                            <div class="invalid-feedback"> กรุณากรอก <?php echo $form_detail_name; ?></div>
+
+                                                        </td>
                                                         <td>
-                                                        <?php
-                                                        if (in_array('W', $array_form_main_detail_step)) {
+                                                            <?php
+                                                            if (in_array('W', $array_form_main_detail_step)) {
 
-                                                            if (!empty($grade)) {
-                                                                $sum_grade = $grade * $form_detail_weight;
-                                                                echo $sum_grade;
-                                                            } else {
-                                                                $sum_grade = 0;
+                                                                if (!empty($grade)) {
+                                                                    $sum_grade = $grade * $form_detail_weight;
+                                                                    echo $sum_grade;
+                                                                } else {
+                                                                    $sum_grade = 0;
+                                                                }
                                                             }
-                                                        }
-                                                        ?>
-                                                    </td>
+                                                            ?>
+                                                        </td>
 
 
 
                                                     </tr>
 
 
-                                                    <?php
-                                                        if (in_array('W', $array_form_main_detail_step)) {
-                                                            $total  = $total + $sum_grade;
-                                                        }
-                                                    }   ?>
+                                                <?php
+                                                    if (in_array('W', $array_form_main_detail_step)) {
+                                                        $total  = $total + $sum_grade;
+                                                    }
+                                                }   ?>
 
-                                            
+
 
                                                 <?php
                                                 if (in_array('W', $array_form_main_detail_step)) {
@@ -905,7 +928,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
                                 <?php
 
-                                $sql_check_complete = "SELECT * FROM tbl_detail where detail_id = $detail_id ";
+                                $sql_check_complete = "SELECT * FROM tbl_detail where detail_id = $detail_id and detail_complete = 1";
                                 $query_check_complete = $conn->query($sql_check_complete);
                                 if ($row_check_complete = $query_check_complete->fetch_assoc()) {
                                     $detail_complete = $row_check_complete['detail_complete'];
@@ -916,15 +939,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
                                 <center>
-                                   
                                     <h3>
-                                        <input name="detail_complete" class="form-check-input" type="radio" value="2" id="invalidCheck3" <?php if ($detail_complete == '2') {
-                                                                                                                                                echo "checked ";
-                                                                                                                                            } else {
-                                                                                                                                            } ?> required>
-                                        <label class="form-check-label" for="invalidCheck3"> Incomplete </label>
-                                        &nbsp;&nbsp;
-
                                         <input name="detail_complete" class="form-check-input" type="radio" value="1" id="invalidCheck1" <?php if ($detail_complete == '1') {
                                                                                                                                                 echo "checked ";
                                                                                                                                             } else {
@@ -944,7 +959,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
 
-                                <?php if($type_work_id == 4) {?>
+                                <?php if ($type_work_id == 4) { ?>
                                     <br>
                                     <?php include "form_evaluate_ck.php"; ?>
                                     <br>
@@ -977,17 +992,6 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
 
 
-
-           
-
-                   
-    
-                    <a href="evaluate_cancel.php?detail_id=<?php echo $detail_id;?>&form_main_id=<?php echo $form_main_id;?>
-                    "class="btn btn-danger " onClick="return confirm('กรุณายืนยันการยกเลิกคะแนนอีกครั้ง !!!')"> ยกเลิก</a>
-    
-                  
-
-
                     </form>
                 </div>
             </div>
@@ -1006,7 +1010,7 @@ $detail_id = (!empty($_GET['detail_id'])) ?  $_GET['detail_id'] : 0;
 
     if (isset($_POST['submit_insert_form'])) {
         //include "insert_evaluate.php";
-        include "insert_form.php";
+        include "insert_form_test.php";
     }
 
     ?>

@@ -42,7 +42,7 @@ if (isset($_SESSION['error'])) {
 <?php
 
 if($loginname == 'mongkol.th'){ 
-    $student_id = '6110810009';
+    $student_id = '5510810060';
    }else{
     $student_id = $_SESSION["user_id"];
    }
@@ -394,7 +394,7 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                                 <th>อนุสาขาวิชา</th>
                                 <th> HN</th>
                                 <th> รายละเอียด </th>
-                                <!--<th>สถานะ</th>-->
+                                <th>สถานะ</th>
                                 <th width="15%">จัดการข้อมูล</th>
                             </tr>
                         </thead>
@@ -488,25 +488,56 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                                         ?>
                                    </td>
                         -->
+
+
+
+                                    <td>
+                                    <?php
+                                        switch ($result['detail_complete']) { // Harder page
+                                            case 0:
+                                                echo " <a href='#' class='btn btn-danger rounded-pill btn-sm'> ยังไม่ผ่าน </a>";
+                                                break;
+                                            case 1:
+                                                echo " <a href='#' class='btn btn-success rounded-pill btn-sm'> ผ่าน </a>";
+                                                break;
+                                            default:
+                                                echo  "";
+                                        }
+                                    ?>
+                                    </td> 
                                     <td>
 
 
                                     <?php
                                      $sql_arrange = " SELECT * FROM tbl_arrange  WHERE detail_id = $detail_id";
                                      $query_arrange = $conn->query($sql_arrange);
-                                     if($result_arrange = $query_arrange->fetch_assoc()){ }else{ 
+                                     if($result_arrange = $query_arrange->fetch_assoc()){
+                                   ?>
+
+                                        <a href='evaluate_view.php?detail_id=<?php echo $detail_id; ?>' target='_blank' class='btn btn-primary btn-sm'> <i class="bx bxs-file"></i> View</a>
+
+
+
+                                    <?php
+                                      }else{ 
                                     ?>
                                         <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?php echo $detail_id; ?>"> <i class="bx bxs-edit"></i></a>
                                         <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#del<?php echo $detail_id; ?>"> <i class="bx bxs-trash"></i></a>
-                                    <?php }?>
+                                  
+                                  
+
+                                  
+                                        <?php }?>
                                         <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#send<?php echo $detail_id; ?>"> <i class="bx bxs-send"></i></a>
-                                        
+
                                         
                                        <?php
                                                 if($loginname == 'mongkol.th'){ 
                                        ?>
                                         
+                                     
                                         <a href='pdf.php?detail_id=<?php echo $detail_id; ?>' target='_blank' class='btn btn-success btn-sm'> PDF</a>
+                                            
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -552,10 +583,8 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
 
                                             <input name="detail_id" type="hidden" value="<?php echo $detail_id; ?>" />
 
-                                            <?php //echo $detail_id; 
-                                            ?>
-
-
+                                            <?php //echo $detail_id; ?>
+                                            
 
                                             <div class="col-sm-12">
                                                 <div class="form-group">
@@ -584,7 +613,7 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                                                                 <?php echo $result_tt['teacher_surname']; ?>
                                                             </option>
 
-                                                        <?php   } ?>
+                                                        <?php } ?>
 
                                                     </select>
                                                 </div>
@@ -909,7 +938,7 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                                 <th> วันที่</th>
                                 <th> เวลา </th>
                                 <th> อาจารย์ </th>
-                                <th> สถานะ </th>
+                                <th> สถานะ</th>
                                 <th> วันที่ประเมิน </th>
                             </tr>
                         </thead>
@@ -927,7 +956,7 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                             $i = 0;
                             while ($result_arrange = $query_arrange->fetch_assoc()) {
                             $i++;
-
+                            $arrange_id = $result_arrange['arrange_id'];
                             ?>
                                 <tr>
                                     <th> <?php echo $i; ?></th>
@@ -935,9 +964,61 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
                                     <td> <?php echo $result_arrange['arrange_date']; ?></td> 
                                     <td> <?php echo $result_arrange['arrange_time']; ?></td> 
                                     <td> <?php echo $result_arrange['teacher_id']; ?></td> 
-                                    <td> <?php echo $result_arrange['arrange_check_eval']; ?></td> 
-                                    <td> <?php echo $result_arrange['arrange_check_date_eval']; ?></td> 
+                                    <td> 
+                                    <?php
+                                        switch ($result_arrange['arrange_check_eval']) { // Harder page
+                                            case 0:
+                                                echo " <a href='#' class='btn btn-secondary rounded-pill btn-sm'>รอประเมิน</a>";
+                                                break;
+                                            case 1:
+                                                echo " <a href='#' class='btn btn-success rounded-pill btn-sm'> ประเมินแล้ว </a>";
+                                                break;
+                                            default:
+                                                echo  "";
+                                        }
+                                    ?>
+                                   </td> 
+                                    <td> <?php echo $result_arrange['arrange_check_date_eval']; ?>
+                                    <?php if($result_arrange['arrange_check_eval']==0){ ?>
+                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delsend<?php echo $arrange_id; ?>"> <i class="bx bxs-trash"></i></a>
+                                    <?php } ?>
+                                    </td> 
+
+                                    
+                                
+                                
+                               
                                 </tr>
+
+
+                                <?php if($result_arrange['arrange_check_eval']==0){ ?>
+                                    <form name="myFormdelarrange<?php echo $detail_id; ?>" id="myForm" action="" method="post">
+                                        <div class="modal fade" id="delsend<?php echo $arrange_id; ?>" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title">Del <?php echo md5($arrange_id); ?> / <?php echo $arrange_id; ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <input name="arrange_id" type="hidden" value="<?php echo $arrange_id; ?>" />
+
+                                                        <h3>
+                                                            <font color="red">ยืนยันการยกเลิกอีกครั้ง</font>
+                                                        </h3>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button name="submit_del_arrange" type="submit" value="submit_del_arrange" class="btn btn-danger"> <i class='ri-save-2-line'></i> ยกเลิกส่งใบงานสอบ</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Basic Modal-->
+                                    </form>
+                                <?php } ?>
 
 
                             <?php
@@ -1110,30 +1191,44 @@ if (!empty($_GET['del']) && !empty($_GET['check']) && ($_GET['check'] == md5($_G
 
     if (isset($_POST['submit_del'])) {
 
-
         include "config.inc.php";
-
-
-
         if (isset($_POST['detail_id'])  && !empty($_POST['detail_id'])) {
             $detail_id = $conn->real_escape_string($_POST['detail_id']);
         } else {
             $detail_id = 0;
         }
 
-
         $sql_del = "DELETE FROM tbl_detail WHERE detail_id = $detail_id";
         $conn->query($sql_del);
-
         $_SESSION['do'] = 'ลบสำเร็จ';
-
         $conn->close();
         echo "<script type='text/javascript'>";
-        //echo "alert('[บันทึกข้อมูสำเร็จ]');";
         echo "window.location='detail_work_form.php';";
         echo "</script>";
     }
 
+
+
+    if (isset($_POST['submit_del_arrange'])) {
+
+        include "config.inc.php";
+        if (isset($_POST['arrange_id'])  && !empty($_POST['arrange_id'])) {
+            $arrange_id = $conn->real_escape_string($_POST['arrange_id']);
+        } else {
+            $arrange_id = 0;
+        }
+
+        $sql_del = "DELETE FROM tbl_arrange WHERE arrange_id = $arrange_id";
+        $conn->query($sql_del);
+        $_SESSION['do'] = 'ยกเลิกสำเร็จ';
+        $conn->close();
+        echo "<script type='text/javascript'>";
+        echo "window.location='detail_work_form.php';";
+        echo "</script>";
+    }
+
+
+    
 
 
     if (isset($_POST['submit'])) {
